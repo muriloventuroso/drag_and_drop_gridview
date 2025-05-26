@@ -1,6 +1,5 @@
 import 'package:drag_and_drop_gridview/devdrag.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: DragAndDropGridView(
             controller: _scrollController,
+            delay: const Duration(milliseconds: 150),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 3 / 4.5,

@@ -37,6 +37,7 @@ class MainGridView extends StatefulWidget {
       this.isCustomFeedback = false,
       this.isCustomChildWhenDragging = false,
       required this.gridDelegate,
+      this.delay = const Duration(milliseconds: 500),
       this.dragStartBehavior = DragStartBehavior.start,
       this.keyboardDismissBehavior = ScrollViewKeyboardDismissBehavior.manual});
 
@@ -80,6 +81,7 @@ class MainGridView extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
   final ScrollViewKeyboardDismissBehavior keyboardDismissBehavior;
   final bool isVertical;
+  final Duration delay;
 
   // set you feedback child here and to get this working please set isCustomFeedback to true
   final WidgetPositionBuilder? feedback;
@@ -182,7 +184,8 @@ class _MainGridViewState extends State<MainGridView> {
       builder: (_, __, ___) => isNonDraggable
           ? mainWidget
           : _dragItemBuilder(mainWidget, pos, isFromArrange: isFromArrangeP),
-      onWillAccept: (String? data) {
+      onWillAcceptWithDetails: (details) {
+        var data = details.data as String?;
         if (data != null) {
           final onWillAcceptHeader = widget.onWillAcceptHeader;
           if (!isFromArrangeP) {
@@ -196,7 +199,11 @@ class _MainGridViewState extends State<MainGridView> {
 
         return false;
       },
-      onAccept: (String data) {
+      onAcceptWithDetails: (details) {
+        var data = details.data as String?;
+        if (data == null) {
+          return;
+        }
         if (isFromArrangeP) {
           if (data.toString().contains("h") && widget.onReorderHeader != null) {
             widget.onReorderHeader!(
@@ -216,6 +223,7 @@ class _MainGridViewState extends State<MainGridView> {
     return LongPressDraggable(
       data: isFromArrange ? "h$pos" : "$pos",
       child: mainWidget,
+      delay: widget.delay,
       feedback: widget.isCustomFeedback && feedback != null
           ? feedback(pos)
           : mainWidget,
@@ -351,7 +359,7 @@ class _MainGridViewState extends State<MainGridView> {
                     width: widget.isVertical ? double.infinity : 20,
                     color: Colors.transparent,
                   ),
-                  onWillAccept: (_) {
+                  onWillAcceptWithDetails: (_) {
                     if (!widget.isVertical) {
                       _moveRight();
                       return false;
@@ -375,7 +383,7 @@ class _MainGridViewState extends State<MainGridView> {
                     width: widget.isVertical ? double.infinity : 20,
                     color: Colors.transparent,
                   ),
-                  onWillAccept: (_) {
+                  onWillAcceptWithDetails: (_) {
                     if (!widget.isVertical) {
                       _moveLeft();
                       return false;

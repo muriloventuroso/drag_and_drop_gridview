@@ -47,7 +47,8 @@ class DragAndDropGridView extends MainGridView {
         ScrollViewKeyboardDismissBehavior.manual,
     WidgetPositionBuilder? feedback,
     WidgetPositionBuilder? childWhenDragging,
-  })  : super(
+    Duration delay = const Duration(milliseconds: 500),
+  }) : super(
           key: key,
           reverse: reverse,
           header: header,
@@ -71,6 +72,7 @@ class DragAndDropGridView extends MainGridView {
           gridDelegate: gridDelegate,
           dragStartBehavior: dragStartBehavior,
           keyboardDismissBehavior: keyboardDismissBehavior,
+          delay: delay,
         );
 
   /// This constructor  use to achive the Horizontal Reorderable / Re-Indexing feature in DragAndDropGridView.
@@ -114,7 +116,7 @@ class DragAndDropGridView extends MainGridView {
         ScrollViewKeyboardDismissBehavior.manual,
     WidgetPositionBuilder? feedback,
     WidgetPositionBuilder? childWhenDragging,
-  })  : super(
+  }) : super(
           key: key,
           reverse: reverse,
           itemBuilder: itemBuilder,
@@ -200,7 +202,7 @@ class DragAndDropGridView extends MainGridView {
         ScrollViewKeyboardDismissBehavior.manual,
     WidgetPositionBuilder? feedback,
     WidgetPositionBuilder? childWhenDragging,
-  })  : super(
+  }) : super(
           key: key,
           reverse: reverse,
           itemBuilder: itemBuilder,
@@ -293,7 +295,7 @@ class DragAndDropGridView extends MainGridView {
         ScrollViewKeyboardDismissBehavior.manual,
     WidgetPositionBuilder? feedback,
     WidgetPositionBuilder? childWhenDragging,
-  })  : super(
+  }) : super(
             key: key,
             reverse: reverse,
             itemBuilder: itemBuilder,
